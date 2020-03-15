@@ -14,7 +14,7 @@
 # limitations under the License.
 */}}
 
-{{- if .Values.global.jobs.migration.enabled -}}
+{{- if and .Values.global.jobs.migration.enabled (not .Values.global.persistence.existingPV) -}}
 kind: PersistentVolume
 apiVersion: v1
 metadata:
@@ -38,5 +38,12 @@ spec:
   persistentVolumeReclaimPolicy: {{ .Values.persistence.volumeReclaimPolicy }}
   hostPath:
     path: {{ .Values.global.persistence.mountPath | default .Values.persistence.mountPath }}/{{ .Release.Name }}/{{ .Values.persistence.mountSubPath1 }}
+{{- if .Values.persistence.storageClass }}
+{{- if (eq "-" .Values.persistence.storageClass) }}
+  storageClassName: ""
+{{- else }}
+  storageClassName: "{{ .Values.persistence.storageClass }}"
+{{- end }}
+{{- end }}
 {{- end -}}
 
