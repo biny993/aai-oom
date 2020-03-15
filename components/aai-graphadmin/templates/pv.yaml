@@ -14,7 +14,7 @@
 # limitations under the License.
 */}}
 
-{{- if and .Values.global.jobs.migration.enabled (not .Values.global.persistence.existingPV) -}}
+{{- if and .Values.global.jobs.migration.enabled (not .Values.persistence.existingPV) -}}
 kind: PersistentVolume
 apiVersion: v1
 metadata:
