@@ -79,6 +79,7 @@ persistence:
   ##
   ## storageClass: "-"
   accessMode: ReadWriteMany
+  storageClass: "nfs"
   size: 2Gi
   mountPath: /dockerdata-nfs
   mountSubPath: aai/data-router/logs
